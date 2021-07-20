@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "get-idtoken",
+  "version": "1.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Get ID token from GitHub OIDC provider",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/dwivedine/GH_OIDC_IDToken.git"
   },
   "keywords": [
     "actions",
@@ -25,7 +25,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.4.0"
+    "@actions/core": "^1.4.0",
+    "@actions/http-client": "^1.0.11"
   },
   "devDependencies": {
     "@types/node": "^16.3.3",
