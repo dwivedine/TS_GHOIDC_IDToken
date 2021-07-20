@@ -43,7 +43,7 @@ function getUploadHeaders(): IHeaders {
   return requestOptions
 }
 
-async function run(audience: string): Promise<string> {
+async function run(): Promise<void> {
   try {
     const id_token_url: string = getRuntimeUrl()
 
@@ -67,6 +67,8 @@ async function run(audience: string): Promise<string> {
 
     let aud = ''
 
+    const audience = core.getInput('audience', {required: false})
+
     if (audience !== undefined) aud = `{aud: ${audience}}`
 
     const response = await httpclient.post(id_token_url, aud, headers)
@@ -85,12 +87,10 @@ async function run(audience: string): Promise<string> {
       throw new Error(`Not able to fetch the ID token`)
     }
 
-    core.debug(`id token is ${id_token}`)
-    return id_token
+    core.setOutput('id_token', id_token)
   } catch (error) {
     core.setFailed(error.message)
-    return error.message
   }
 }
 
-run('')
+run()

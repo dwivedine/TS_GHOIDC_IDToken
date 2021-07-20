@@ -72,7 +72,7 @@ function getUploadHeaders() {
     requestOptions['Accept'] = `application/json;api-version=${getApiVersion()}`;
     return requestOptions;
 }
-function run(audience) {
+function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id_token_url = getRuntimeUrl();
@@ -90,6 +90,7 @@ function run(audience) {
             const headers = getUploadHeaders();
             core.debug(`header is ${headers}`);
             let aud = '';
+            const audience = core.getInput('audience', { required: false });
             if (audience !== undefined)
                 aud = `{aud: ${audience}}`;
             const response = yield httpclient.post(id_token_url, aud, headers);
@@ -102,16 +103,14 @@ function run(audience) {
             if (id_token === undefined) {
                 throw new Error(`Not able to fetch the ID token`);
             }
-            core.debug(`id token is ${id_token}`);
-            return id_token;
+            core.setOutput('id_token', id_token);
         }
         catch (error) {
             core.setFailed(error.message);
-            return error.message;
         }
     });
 }
-run('');
+run();
 
 
 /***/ }),
